@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+<!--  -->
+{% block title %}New Pet{% endblock %}
+<!--  -->
+{% block main_content %}
+<div class="container">
+  <h1>Add A New Pet</h1>
+  <form id="pet-add-form" method="POST">
+    {{form.hidden_tag()}} {% for field in form if field.widget.input_type !=
+    'hidden' %}{% if field.type != 'BooleanField' %}
+    <div>
+      {{field.label}} {{field(class_="form-control")}} {% for error in
+      field.errors %} {{error}} {% endfor %}
+    </div>
+    {% else %}
+    <div class="form-check">
+      {{field.label(class_="form-check-label")}}
+      {{field(class_="form-check-input")}} {% for error in field.errors %}
+      {{error}} {% endfor %}
+    </div>
+    {% endif %} {% endfor %}
+    <button class="btn btn-success btn-lg mt-3">Submit</button>
+  </form>
+</div>
+{% endblock %}

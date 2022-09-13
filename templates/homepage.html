@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+<!--  -->
+{% block title %}Adoption Agency{% endblock %}
+<!--  -->
+{% block main_content %}
+<div class="container">
+  <h1>Pets</h1>
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-message">{{ msg }}</p>
+  {% endfor %}
+  <div class="container text-center mt-5">
+    <div class="row align-items-top justify-content-center">
+      {% for pet in pets %}
+      <div class="col-4">
+        <img width="100%" src="{{pet.photo_url}}" />
+        <p>
+          <a href="/{{pet.id}}">{{pet.name}}</a> {% if pet.available == True %}
+          <span style="font-weight: bold">is available!</span>
+          {% endif %}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="container text-center">
+    <a href="/add" class="btn btn-success">Add Pet</a>
+  </div>
+</div>
+{% endblock %}

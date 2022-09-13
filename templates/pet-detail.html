@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+<!--  -->
+{% block title %}{{pet.name}} Details{% endblock %}
+<!--  -->
+{% block main_content %}
+<div class="container">
+  <h1>{{pet.name}}'s Details</h1>
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-message">{{ msg }}</p>
+  {% endfor %}
+  <div class="container text-left mt-5">
+    <div class="row align-items-top justify-content-left">
+      <div class="col-4"><img width="100%" src="{{pet.photo_url}}" /></div>
+      <div class="col-8">
+        <ul>
+          <li><span style="font-weight: bold">Name:</span> {{pet.name}}</li>
+          <li>
+            <span style="font-weight: bold">Species:</span> {{pet.species}}
+          </li>
+          <li><span style="font-weight: bold">Age:</span> {{pet.age}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <h4>Edit Details</h4>
+    <form action="/{{pet.id}}" id="pet-edit-form" method="POST">
+      {{form.hidden_tag()}} {% for field in form if field.widget.input_type !=
+      'hidden' %}{% if field.type != 'BooleanField' %}
+      <div>
+        {{field.label}} {{field(class_="form-control")}} {% for error in
+        field.errors %} {{error}} {% endfor %}
+      </div>
+      {% else %}
+      <div class="form-check">
+        {{field.label(class_="form-check-label")}}
+        {{field(class_="form-check-input")}} {% for error in field.errors %}
+        {{error}} {% endfor %}
+      </div>
+      {% endif %} {% endfor %}
+      <button class="btn btn-success btn-lg mt-3">Save Updates</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
